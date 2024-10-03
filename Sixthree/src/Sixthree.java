@@ -1,28 +1,22 @@
-import javax.swing.JOptionPane;
+import java.util.Scanner;
 
 public class Sixthree {
     public static void main(String[] args) {
-       
-        String input = JOptionPane.showInputDialog("Enter the height of the triangle:");
-        int n = Integer.parseInt(input);
-
-        StringBuilder triangle = new StringBuilder();
-
-        // Tạo tam giác cân
+        Scanner keyboard = new Scanner(System.in);
+        
+        int n = keyboard.nextInt();
+        StringBuilder sb = new StringBuilder();
+      
         for (int i = 1; i <= n; i++) {
-            // In khoảng trắng trước dấu sao để tạo độ lệch
-            for (int j = 0; j < n - i; j++) {
-                triangle.append(" "); // Sử dụng khoảng trắng
+            for (int j = 1; j <= n - i; j++) {
+                sb.append(" ");
             }
-            // In các dấu sao
-            for (int k = 0; k < 2 * i - 1; k++) {
-                triangle.append("*");
+            for (int k = 1; k <= 2 * i - 1; k++) {
+                sb.append("*");
             }
-            triangle.append("\n");
+            sb.append("\n"); 
         }
 
-        // Hiển thị tam giác cân
-        JOptionPane.showMessageDialog(null, triangle.toString());
-        System.exit(0);
+        System.out.print(sb.toString());
     }
 }
