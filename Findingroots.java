@@ -1,136 +1,107 @@
-
 import javax.swing.JOptionPane;
+
 public class Findingroots {
     public static void main(String[] args) {
-        String selection;
+        String selection = getSelection();
 
-        boolean validInput = false;
-        while (!validInput) {
-            selection = JOptionPane.showInputDialog(null,"1. First-degree equation\n2. System of first-degree equations\n3. Second-degree equation","Select the programme",JOptionPane.INFORMATION_MESSAGE);
-
-            switch(selection) {
+        switch (selection) {
             case "1":
-                // First-degree equation
-                String a = "";
-                boolean validInputA = false;
-                while (!validInputA) {
-                    a = JOptionPane.showInputDialog(null,"Please enter the first number (a): ","Input the first number",JOptionPane.INFORMATION_MESSAGE);
-                    if (a.equals("0")) {
-                        JOptionPane.showMessageDialog(null,"The second number cannot be zero. Please re-enter.","Invalid Input", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                    validInputA = true;
-                    }
-                }
-                String b = JOptionPane.showInputDialog(null,"Please enter the second number (b): ","Input the second number",JOptionPane.INFORMATION_MESSAGE);
-                firstDegreeSolver(a, b);
+                solveFirstDegreeEquation();
                 break;
             case "2":
-                // System of first-degree equations
-                String a1 = JOptionPane.showInputDialog(null,
-                        "Please enter the first number (a1): ",
-                        "Input the first number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                String b1 = JOptionPane.showInputDialog(null,
-                        "Please enter the second number (b1): ",
-                        "Input the second number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                String c1 = JOptionPane.showInputDialog(null,
-                        "Please enter the third number (c1): ",
-                        "Input the third number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                String a2 = JOptionPane.showInputDialog(null,
-                        "Please enter the fourth number (a2): ",
-                        "Input the fourth number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                String b2 = JOptionPane.showInputDialog(null,
-                        "Please enter the fifth number (b2): ",
-                        "Input the fifth number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                String c2 = JOptionPane.showInputDialog(null,
-                        "Please enter the sixth number (c2): ",
-                        "Input the sixth number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                firstDegreeSystemSolver(a1, b1, c1, a2, b2, c2);
+                solveFirstDegreeSystem();
                 break;
             case "3":
-                // Second-degree equation
-                String a3 = JOptionPane.showInputDialog(null,
-                        "Please enter the first number (a): ",
-                        "Input the first number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                String b3 = JOptionPane.showInputDialog(null,
-                        "Please enter the second number (b): ",
-                        "Input the second number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                String c3 = JOptionPane.showInputDialog(null,
-                        "Please enter the third number (c): ",
-                        "Input the third number",
-                        JOptionPane.INFORMATION_MESSAGE);
-                secondDegreeSolver(a3, b3, c3);
+                solveSecondDegreeEquation();
                 break;
             default:
-                JOptionPane.showMessageDialog(null, "Invalid selection",
-                    "Invalid selection", JOptionPane.INFORMATION_MESSAGE);
-                    continue;
-            }
-            validInput = true;
+                JOptionPane.showMessageDialog(null, "Invalid selection", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         System.exit(0);
     }
 
-    private static void firstDegreeSolver(String a, String b) {
-        double numA = Double.parseDouble(a);
-        double numB = Double.parseDouble(b);
-        JOptionPane.showMessageDialog(null, "The solution is: " + -numB / numA,
-            "Solution", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private static void firstDegreeSystemSolver(String a1, String b1, String c1, String a2, String b2, String c2) {
-        double numA1 = Double.parseDouble(a1);
-        double numB1 = Double.parseDouble(b1);
-        double numC1 = Double.parseDouble(c1);
-        double numA2 = Double.parseDouble(a2);
-        double numB2 = Double.parseDouble(b2);
-        double numC2 = Double.parseDouble(c2);
-        double determinant = numA1 * numB2 - numA2 * numB1;
-
-        if (determinant == 0) {
-            if (numA1 * numC2 == numA2 * numC1 && numB1 * numC2 == numB2 * numC1) {
-            JOptionPane.showMessageDialog(null, "The system has infinitely many solutions.",
-                "Infinitely Many Solutions", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-            JOptionPane.showMessageDialog(null, "The system has no solution.",
-                "No Solution", JOptionPane.ERROR_MESSAGE);
+    private static String getSelection() {
+        String selection;
+        while (true) {
+            selection = JOptionPane.showInputDialog(null,
+                "1. First-degree equation\n2. System of first-degree equations\n3. Second-degree equation",
+                "Select the programme",
+                JOptionPane.INFORMATION_MESSAGE);
+            if (selection != null && (selection.equals("1") || selection.equals("2") || selection.equals("3"))) {
+                return selection;
             }
-        } else {
-            double determinantX = numC1 * numB2 - numC2 * numB1;
-            double determinantY = numA1 * numC2 - numA2 * numC1;
-            double x = determinantX / determinant;
-            double y = determinantY / determinant;
-            JOptionPane.showMessageDialog(null, "The solution is: x = " + x + ", y = " + y,
-            "Solution", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid selection. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private static void secondDegreeSolver(String a, String b, String c) {
-        double numA = Double.parseDouble(a);
-        double numB = Double.parseDouble(b);
-        double numC = Double.parseDouble(c);
-        double delta = numB * numB - 4 * numA * numC;
+    private static void solveFirstDegreeEquation() {
+        double a = getNonZeroDoubleInput("Please enter the first number (a):");
+        double b = getDoubleInput("Please enter the second number (b):");
+        double solution = -b / a;
+        JOptionPane.showMessageDialog(null, "The solution is: " + solution, "Solution", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private static void solveFirstDegreeSystem() {
+        double[] coefficients = new double[6];
+        for (int i = 0; i < coefficients.length; i++) {
+            coefficients[i] = getDoubleInput("Please enter number " + (i + 1) + ":");
+        }
+
+        double a1 = coefficients[0], b1 = coefficients[1], c1 = coefficients[2];
+        double a2 = coefficients[3], b2 = coefficients[4], c2 = coefficients[5];
+        double determinant = a1 * b2 - a2 * b1;
+
+        if (determinant == 0) {
+            if (a1 * c2 == a2 * c1 && b1 * c2 == b2 * c1) {
+                JOptionPane.showMessageDialog(null, "The system has infinitely many solutions.", "Infinitely Many Solutions", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "The system has no solution.", "No Solution", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            double x = (c1 * b2 - c2 * b1) / determinant;
+            double y = (a1 * c2 - a2 * c1) / determinant;
+            JOptionPane.showMessageDialog(null, "The solution is: x = " + x + ", y = " + y, "Solution", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private static void solveSecondDegreeEquation() {
+        double a = getNonZeroDoubleInput("Please enter the first number (a):");
+        double b = getDoubleInput("Please enter the second number (b):");
+        double c = getDoubleInput("Please enter the third number (c):");
+        double delta = b * b - 4 * a * c;
 
         if (delta < 0) {
-            JOptionPane.showMessageDialog(null, "The equation has no real roots.",
-                "No Real Roots", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The equation has no real roots.", "No Real Roots", JOptionPane.INFORMATION_MESSAGE);
         } else if (delta == 0) {
-            double root = -numB / (2 * numA);
-            JOptionPane.showMessageDialog(null, "The equation has one real root: " + root,
-                "One Real Root", JOptionPane.INFORMATION_MESSAGE);
+            double root = -b / (2 * a);
+            JOptionPane.showMessageDialog(null, "The equation has one real root: " + root, "One Real Root", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            double root1 = (-numB + Math.sqrt(delta)) / (2 * numA);
-            double root2 = (-numB - Math.sqrt(delta)) / (2 * numA);
-            JOptionPane.showMessageDialog(null, "The equation has two real roots: " + root1 + " and " + root2,
-                "Two Real Roots", JOptionPane.INFORMATION_MESSAGE);
+            double root1 = (-b + Math.sqrt(delta)) / (2 * a);
+            double root2 = (-b - Math.sqrt(delta)) / (2 * a);
+            JOptionPane.showMessageDialog(null, "The equation has two real roots: " + root1 + " and " + root2, "Two Real Roots", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private static double getDoubleInput(String message) {
+        String input;
+        while (true) {
+            input = JOptionPane.showInputDialog(null, message, "Input", JOptionPane.INFORMATION_MESSAGE);
+            if (input == null) return Double.NaN; // Handle cancel
+            try {
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private static double getNonZeroDoubleInput(String message) {
+        double value;
+        while (true) {
+            value = getDoubleInput(message);
+            if (value != 0) return value;
+            JOptionPane.showMessageDialog(null, "The number cannot be zero. Please re-enter.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
