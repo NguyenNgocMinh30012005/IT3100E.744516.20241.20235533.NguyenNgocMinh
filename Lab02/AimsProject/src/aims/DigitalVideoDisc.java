@@ -1,17 +1,12 @@
 package aims;
 
+
 public class DigitalVideoDisc {
-    private int id;
     private String title;
     private String category;
     private String director;
-    private int length;
+    private int lenght;
     private float cost;
-
-
-    public int getId() {
-        return id;
-    }
     public String getTitle() {
         return title;
     }
@@ -21,8 +16,8 @@ public class DigitalVideoDisc {
     public String getDirector() {
         return director;
     }
-    public int getLength() {
-        return length;
+    public int getLenght() {
+        return lenght;
     }
     public float getCost() {
         return cost;
@@ -31,6 +26,28 @@ public class DigitalVideoDisc {
         super();
         this.title = title;
     }
+    public DigitalVideoDisc(String title, String category, float cost) {
+        super();
+        this.title = title;
+        this.category = category;
+        this.cost = cost;
+    }
+    public DigitalVideoDisc(String title, String category, String director, float cost) {
+        super();
+        this.title = title;
+        this.category = category;
+        this.director = director;
+        this.cost = cost;
+    }
+    public DigitalVideoDisc(String title, String category, String director, int lenght, float cost) {
+        super();
+        this.title = title;
+        this.category = category;
+        this.director = director;
+        this.lenght = lenght;
+        this.cost = cost;
+    }
 
 
 }
+
