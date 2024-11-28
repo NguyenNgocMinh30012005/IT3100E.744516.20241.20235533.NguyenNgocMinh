@@ -1,6 +1,5 @@
 package hust.soict.dsai.aims.disc;
 
-
 public class DigitalVideoDisc {
     private String title;
     private String category;
@@ -37,6 +36,7 @@ public class DigitalVideoDisc {
         this.id = nbDigitalVideoDiscs;
     }
 
+
     public DigitalVideoDisc(String title, String category, float cost) {
         this.title = title;
         this.category = category;
@@ -49,9 +49,6 @@ public class DigitalVideoDisc {
         nbDigitalVideoDiscs++;
         this.id = nbDigitalVideoDiscs;
     }
-
-
-
 
     public void setTitle(String title) {
         this.title = title;
