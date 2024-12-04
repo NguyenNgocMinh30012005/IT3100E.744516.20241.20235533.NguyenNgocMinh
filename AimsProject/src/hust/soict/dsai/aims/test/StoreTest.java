@@ -1,33 +1,29 @@
 package hust.soict.dsai.aims.test;
 
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.store.Store;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class StoreTest {
-    public static void main(String[] args) {
-        // Tạo đối tượng cửa hàng
-        Store store = new Store();
+    public static void main(String[] args ){
+        Store mystore = new Store();
+        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Alters", 87, 24.95f);
 
-        // Tạo các DVD và thêm vào cửa hàng
-        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladdin", "Animation", 18.99f);
+        DigitalVideoDisc dvd2 = new DigitalVideoDisc("War Wars", "Science Fiction", "George Lucas", 87, 24.95f);
 
-        store.addDVD(dvd1);
-        store.addDVD(dvd2);
-        store.addDVD(dvd3);
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladdin", "Animation", 18.99f,87,"Kiet Le");
 
-        // In danh sách DVD có trong cửa hàng
-        store.printStore();
+        mystore.addMedia(dvd1);
+        mystore.addMedia(dvd2);
+        mystore.addMedia(dvd3);
+        ArrayList<Media> test = mystore.Items();
+        System.out.println(test);
+        test.sort(Media.COMPARE_BY_COST_TITLE);
+        mystore.displayItemsInStore();
 
-        // Xóa một DVD khỏi cửa hàng
-        store.removeDVD(dvd2);
 
-        // In lại danh sách DVD sau khi xóa
-        store.printStore();
-
-        // Thử xóa DVD không tồn tại trong cửa hàng
-        DigitalVideoDisc dvd4 = new DigitalVideoDisc("Frozen", "Animation", 20.99f);
-        store.removeDVD(dvd4);
     }
 }
