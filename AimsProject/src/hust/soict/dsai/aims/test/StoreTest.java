@@ -19,7 +19,7 @@ public class StoreTest {
         mystore.addMedia(dvd1);
         mystore.addMedia(dvd2);
         mystore.addMedia(dvd3);
-        ArrayList<Media> test = mystore.Items();
+        ArrayList<Media> test = mystore.getItemsInStore();
         System.out.println(test);
         test.sort(Media.COMPARE_BY_COST_TITLE);
         mystore.displayItemsInStore();
