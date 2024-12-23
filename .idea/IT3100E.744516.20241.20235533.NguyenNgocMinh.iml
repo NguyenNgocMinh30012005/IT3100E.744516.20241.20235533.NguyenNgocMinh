@@ -7,7 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/OtherProjects/garbage" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GUIProject" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="22" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="openjfx-23.0.1_windows-x64_bin-sdk" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

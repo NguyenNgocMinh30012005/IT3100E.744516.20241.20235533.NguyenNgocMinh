@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="hust/soict/dsai/aims/test/" kind="src" path="AimsProject/src"/>
+	<classpathentry kind="src" path="AimsProject/src/hust/soict/dsai/aims/test"/>
+	<classpathentry kind="src" path="GUIProject"/>
+	<classpathentry kind="src" path="OtherProjects/garbage"/>
+	<classpathentry excluding="Sixsix/src/|ChoosingOption/src/|Sixthree/src/|Sixfour/src/|InputFromKeyboard/src/|Sixfive/src/" kind="src" path="OtherProjects/Lab01"/>
+	<classpathentry kind="src" path="OtherProjects/Lab01/ChoosingOption/src"/>
+	<classpathentry kind="src" path="OtherProjects/Lab01/InputFromKeyboard/src"/>
+	<classpathentry kind="src" path="OtherProjects/Lab01/Sixfive/src"/>
+	<classpathentry kind="src" path="OtherProjects/Lab01/Sixfour/src"/>
+	<classpathentry kind="src" path="OtherProjects/Lab01/Sixsix/src"/>
+	<classpathentry kind="src" path="OtherProjects/Lab01/Sixthree/src"/>
+	<classpathentry kind="output" path="AimsProject/bin"/>
+</classpath>

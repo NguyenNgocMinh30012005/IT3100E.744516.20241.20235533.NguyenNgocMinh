@@ -5,13 +5,10 @@ import hust.soict.dsai.aims.store.Store;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import javafx.collections.ObservableList;
 
 public class StoreScreen extends JFrame {
     private Store store;
-    public static ArrayList<Media> cart = new ArrayList<>(); // Giỏ hàng toàn cục
 
     JPanel createNorth() {
         JPanel north = new JPanel();
@@ -29,14 +26,9 @@ public class StoreScreen extends JFrame {
         smUpdateStore.add(new JMenuItem("Add CD"));
         smUpdateStore.add(new JMenuItem("Add DVD"));
 
-        JMenuItem viewStore = new JMenuItem("View store");
-        viewStore.addActionListener(e -> JOptionPane.showMessageDialog(this, "View Store functionality coming soon!", "Info", JOptionPane.INFORMATION_MESSAGE));
         menu.add(smUpdateStore);
-        menu.add(viewStore);
-
-        JMenuItem viewCart = new JMenuItem("View cart");
-        viewCart.addActionListener(e -> viewCartAction());
-        menu.add(viewCart);
+        menu.add(new JMenuItem("View store"));
+        menu.add(new JMenuItem("View cart"));
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -56,7 +48,10 @@ public class StoreScreen extends JFrame {
         JButton cartButton = new JButton("View cart");
         cartButton.setPreferredSize(new Dimension(100, 50));
         cartButton.setMaximumSize(new Dimension(100, 50));
-        cartButton.addActionListener(e -> viewCartAction());
+        cartButton.addActionListener(e -> {
+            // Xử lý sự kiện khi nhấn nút "View cart"
+            JOptionPane.showMessageDialog(this, "Cart view is under construction.");
+        });
 
         header.add(Box.createRigidArea(new Dimension(10, 10)));
         header.add(title);
@@ -71,25 +66,13 @@ public class StoreScreen extends JFrame {
         JPanel center = new JPanel();
         center.setLayout(new GridLayout(3, 3, 2, 2));
 
-        ArrayList<Media> mediaInStore = store.getItemsInStore();
-        for (int i = 0; i < mediaInStore.size(); i++) {
-            MediaStore cell = new MediaStore(mediaInStore.get(i));
+        ObservableList<Media> itemsInStore = store.getItemsInStore();
+        for (int i = 0; i < itemsInStore.size() && i < 9; i++) {
+            MediaStore cell = new MediaStore(itemsInStore.get(i));
             center.add(cell);
         }
 
         return center;
-    }
-
-    private void viewCartAction() {
-        StringBuilder cartItems = new StringBuilder("Items in your cart:\n");
-        if (cart.isEmpty()) {
-            cartItems.append("Your cart is empty!");
-        } else {
-            for (Media media : cart) {
-                cartItems.append(media.getTitle()).append(" - ").append(media.getCost()).append(" $\n");
-            }
-        }
-        JOptionPane.showMessageDialog(this, cartItems.toString(), "Cart", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public StoreScreen(Store store) {

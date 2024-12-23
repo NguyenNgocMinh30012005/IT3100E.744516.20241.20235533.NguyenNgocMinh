@@ -21,4 +21,7 @@ public class Media {
     public float getCost() {
         return cost;
     }
+    public int getId() {
+        return id;
+    }
 }
